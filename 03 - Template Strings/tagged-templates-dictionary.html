@@ -16,6 +16,17 @@
   </div>
 
 <script>
+  function addAbbrev(strings, ...values) {
+    const updatedValues = values.map((value) => {
+      if (dict[value]) {
+        `<abbr title="${dict[value]}">${value}</abbr>`
+      }
+      return value;
+    })
+
+    return strings.reduce((prev, current, i) => `${prev}${current}${updatedValues[i] || ''}`, '');
+  }
+
   const dict = {
     HTML: 'Hyper Text Markup Language',
     CSS: 'Cascading Style Sheets',
@@ -24,6 +35,14 @@
 
   const first = 'Wes';
   const last = 'Bos';
+
+  const bio  =  addAbbrev`My name is ${first} ${last} and I love to code in ${'HTML'}, ${'CSS'}, and ${'JS'}`
+
+  console.log(bio);
+  const bioSelector = document.querySelector('.bio')
+  const div = document.createElement('div')
+  div.innerHTML = bio
+  bioSelector.appendChild(div);
 
 </script>
 </body>
